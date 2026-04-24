@@ -80,3 +80,22 @@ function midpointCircle(cx, cy, r, color = "#FF0000") {
         drawCirclePoints(cx, cy, x, y);
     }
 }
+
+// Vértices del polígono
+function getPolygonVertices(cx, cy, sides, radius) {
+    let vertices = [];
+
+    for (let i = 0; i < sides; i++) {
+        let angle = (2 * Math.PI * i) / sides;
+
+        let x = cx + radius * Math.cos(angle);
+        let y = cy + radius * Math.sin(angle);
+
+        vertices.push({
+            x: Math.round(x),
+            y: Math.round(y)
+        });
+    }
+
+    return vertices;
+}
