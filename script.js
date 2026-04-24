@@ -45,3 +45,38 @@ function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
         }
     }
 }
+
+// funcion para la circunferencia - Punto Medio
+function midpointCircle(cx, cy, r, color = "#FF0000") {
+    let x = 0;
+    let y = r;
+
+    // Parámetro de decisión inicial
+    let p = 1 - r;
+
+    function drawCirclePoints(cx, cy, x, y) {
+        drawPixel(cx + x, cy + y, color);
+        drawPixel(cx - x, cy + y, color);
+        drawPixel(cx + x, cy - y, color);
+        drawPixel(cx - x, cy - y, color);
+        drawPixel(cx + y, cy + x, color);
+        drawPixel(cx - y, cy + x, color);
+        drawPixel(cx + y, cy - x, color);
+        drawPixel(cx - y, cy - x, color);
+    }
+
+    drawCirclePoints(cx, cy, x, y);
+
+    while (x < y) {
+        x++;
+
+        if (p < 0) {
+            p += 2 * x + 1;
+        } else {
+            y--;
+            p += 2 * (x - y) + 1;
+        }
+
+        drawCirclePoints(cx, cy, x, y);
+    }
+}
