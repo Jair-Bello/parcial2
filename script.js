@@ -54,6 +54,7 @@ function midpointCircle(cx, cy, r, color = "#FF0000") {
     // Parámetro de decisión inicial
     let p = 1 - r;
 
+
     function drawCirclePoints(cx, cy, x, y) {
         drawPixel(cx + x, cy + y, color);
         drawPixel(cx - x, cy + y, color);
@@ -99,3 +100,33 @@ function getPolygonVertices(cx, cy, sides, radius) {
 
     return vertices;
 }
+
+// ================= INTEGRACIÓN =================
+function drawFigure() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    let sides = Math.floor(Math.random() * 6) + 5;
+    let radius = 150;
+
+    let cx = canvas.width / 2;
+    let cy = canvas.height / 2;
+
+    let vertices = getPolygonVertices(cx, cy, sides, radius);
+
+    // Dibujar polígono
+    for (let i = 0; i < sides; i++) {
+        let v1 = vertices[i];
+        let v2 = vertices[(i + 1) % sides];
+
+        bresenhamLine(v1.x, v1.y, v2.x, v2.y);
+    }
+
+    // Dibujar circunferencias
+    let rCircle = radius / 4;
+
+    vertices.forEach(v => {
+        midpointCircle(v.x, v.y, rCircle);
+    });
+}
+
+window.onload = drawFigure;
